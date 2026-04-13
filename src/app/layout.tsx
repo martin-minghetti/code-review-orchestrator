@@ -26,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeScript />
       </head>
       <body className="antialiased bg-background text-foreground">
-        <header className="flex items-center justify-end px-4 py-3">
+        <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
-        </header>
+        </div>
         <main className="min-h-screen">{children}</main>
       </body>
     </html>
