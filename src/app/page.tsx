@@ -54,12 +54,14 @@ export default function HomePage() {
       <Separator />
 
       {/* Form */}
-      <section className="mx-auto max-w-md px-4 py-10 pb-16">
-        <h2 className="text-lg font-semibold mb-1">Try with your own PR</h2>
-        <p className="text-sm text-muted-foreground mb-6">
-          Works on any public GitHub pull request. Bring your own Anthropic API key.
-        </p>
-        <PrInputForm />
+      <section className="mx-auto max-w-3xl px-4 py-10 pb-16">
+        <div className="mx-auto max-w-md">
+          <h2 className="text-lg font-semibold mb-1">Try with your own PR</h2>
+          <p className="text-sm text-muted-foreground mb-6">
+            Works on any public GitHub pull request. Bring your own Anthropic API key.
+          </p>
+          <PrInputForm />
+        </div>
       </section>
     </div>
   );
