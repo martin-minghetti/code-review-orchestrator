@@ -2,6 +2,10 @@
 
 4 AI agents review your GitHub pull request in parallel — security, impact analysis, test gaps, and documentation.
 
+<p align="center">
+  <img src="docs/screenshots/landing.png" alt="Code Review Orchestrator landing page" width="700">
+</p>
+
 ---
 
 ## How It Works
@@ -54,6 +58,10 @@ Three precomputed reviews load instantly — no API key required:
 | **Mixed** | A real-world PR with warnings across multiple agents — shows how findings are grouped |
 
 Click any demo card on the home page to see the full report.
+
+<p align="center">
+  <img src="docs/screenshots/demo-report.png" alt="Demo review report showing security findings" width="700">
+</p>
 
 ---
 
