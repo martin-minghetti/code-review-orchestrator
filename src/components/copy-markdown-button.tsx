@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { ClipboardCopy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { ReviewResult } from '@/lib/schemas';
 import { AGENT_META, type AgentId } from '@/lib/agents/config';
@@ -25,7 +26,7 @@ function toMarkdown(result: ReviewResult): string {
 
   for (const agentResult of agentResults) {
     const meta = AGENT_META[agentResult.agent as AgentId];
-    lines.push(`## ${meta.icon} ${meta.name}`);
+    lines.push(`## ${meta.name}`);
     lines.push('');
 
     if (agentResult.status === 'skipped') {
@@ -100,8 +101,8 @@ export function CopyMarkdownButton({ result }: CopyMarkdownButtonProps) {
 
   return (
     <Button variant="outline" size="sm" onClick={handleCopy}>
-      {state === 'idle' && '📋 Copy as Markdown'}
-      {state === 'copied' && '✓ Copied!'}
+      {state === 'idle' && <><ClipboardCopy className="h-3.5 w-3.5 mr-1.5" />Copy as Markdown</>}
+      {state === 'copied' && <><Check className="h-3.5 w-3.5 mr-1.5" />Copied</>}
       {state === 'error' && 'Failed to copy'}
     </Button>
   );

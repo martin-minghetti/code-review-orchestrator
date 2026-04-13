@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { AGENT_META, AGENT_IDS, type AgentId } from '@/lib/agents/config';
+import { AgentIcon } from './agent-icon';
 import type { ReviewResult } from '@/lib/schemas';
 
 interface ContextInspectorProps {
@@ -29,8 +30,8 @@ export function ContextInspector({ contextByAgent }: ContextInspectorProps) {
             const meta = AGENT_META[agentId as AgentId];
             return (
               <div key={agentId} className="flex flex-col gap-1">
-                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1">
-                  <span aria-hidden="true">{meta.icon}</span>
+                <p className="text-xs font-semibold text-muted-foreground flex items-center gap-1.5">
+                  <AgentIcon agent={agentId} className="h-3.5 w-3.5" />
                   {meta.name}
                 </p>
                 {files.length === 0 ? (

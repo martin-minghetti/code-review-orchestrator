@@ -23,7 +23,7 @@ export function DemoPrCard({ demoId, data }: DemoPrCardProps) {
           <div className="flex flex-wrap gap-2">
             {summary.total === 0 ? (
               <span className="inline-flex h-5 items-center rounded-full bg-green-500/15 px-2 text-xs font-medium text-green-400">
-                ✓ Clean
+                Clean
               </span>
             ) : (
               <>

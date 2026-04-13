@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { AGENT_META, type AgentId } from '@/lib/agents/config';
 import type { AgentResult } from '@/lib/schemas';
+import { AgentIcon } from './agent-icon';
 import { FindingItem } from './finding-item';
 
 interface AgentCardProps {
@@ -49,7 +50,7 @@ export function AgentCard({ result }: AgentCardProps) {
       <CardHeader className="border-b border-border pb-3">
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2 min-w-0">
-            <span className="text-lg" aria-hidden="true">{meta.icon}</span>
+            <AgentIcon agent={result.agent as AgentId} className="h-4 w-4" />
             <CardTitle className="text-sm font-semibold">{meta.name}</CardTitle>
           </div>
           <span

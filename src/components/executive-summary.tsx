@@ -13,7 +13,7 @@ export function ExecutiveSummary({ summary }: ExecutiveSummaryProps) {
       <div className="flex flex-wrap items-center gap-2">
         {isClean ? (
           <span className="inline-flex h-6 items-center rounded-full bg-green-500/15 px-3 text-xs font-medium text-green-400">
-            ✓ No issues found
+            No issues found
           </span>
         ) : (
           <>
