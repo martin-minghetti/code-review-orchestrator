@@ -1,0 +1,77 @@
+{
+  "id": "demo-clean-pr",
+  "pr": {
+    "owner": "vercel",
+    "repo": "ai",
+    "number": 3892,
+    "title": "refactor: extract StreamingTextResponse into shared utility module",
+    "author": "lgrammel",
+    "headSha": "b8e4d1f2a7c9e3b5d0f2a4c6e8b0d2f4a6c8e0b2"
+  },
+  "summary": {
+    "total": 0,
+    "critical": 0,
+    "warning": 0,
+    "info": 0,
+    "assessment": "This PR is clean. The refactor is well-scoped, follows existing patterns, maintains full backward compatibility, and the new shared utility is properly tested and documented."
+  },
+  "agentResults": [
+    {
+      "agent": "security",
+      "status": "completed",
+      "findings": [],
+      "summary": "No security issues found. The refactor moves existing code into a utility module without introducing new data flows, external calls, or trust boundaries.",
+      "model": "claude-opus-4-5",
+      "tokensUsed": 3241,
+      "durationMs": 2180
+    },
+    {
+      "agent": "change-impact",
+      "status": "completed",
+      "findings": [],
+      "summary": "The extraction is clean and follows the existing module pattern. Public API surface is unchanged — existing exports are re-exported from their original paths for full backward compatibility. No regression risk detected.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 2876,
+      "durationMs": 1640
+    },
+    {
+      "agent": "test-gap",
+      "status": "completed",
+      "findings": [],
+      "summary": "The new utility module has dedicated unit tests in packages/core/src/utils/streaming.test.ts. Existing integration tests continue to cover the re-exported paths. Coverage is adequate.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 2103,
+      "durationMs": 1190
+    },
+    {
+      "agent": "docs",
+      "status": "skipped",
+      "skipReason": "No public API surface changes detected — all changed files are internal utilities with no user-facing documentation impact.",
+      "findings": [],
+      "summary": "",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 0,
+      "durationMs": 0
+    }
+  ],
+  "contextByAgent": {
+    "security": [
+      "packages/core/src/utils/streaming.ts",
+      "packages/core/src/index.ts"
+    ],
+    "change-impact": [
+      "packages/core/src/utils/streaming.ts",
+      "packages/core/src/index.ts",
+      "packages/core/src/streams/streaming-text-response.ts",
+      "packages/react/src/index.ts",
+      "packages/svelte/src/index.ts"
+    ],
+    "test-gap": [
+      "packages/core/src/utils/streaming.ts",
+      "packages/core/src/utils/streaming.test.ts",
+      "packages/core/src/streams/streaming-text-response.test.ts"
+    ],
+    "docs": []
+  },
+  "createdAt": "2026-04-12T11:00:00Z"
+}

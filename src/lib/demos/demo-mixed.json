@@ -1,0 +1,113 @@
+{
+  "id": "demo-mixed",
+  "pr": {
+    "owner": "shadcn-ui",
+    "repo": "ui",
+    "number": 7104,
+    "title": "feat: add DataTable component with sorting and pagination",
+    "author": "shadcn",
+    "headSha": "c5a9e3f1d7b2e4a6c8d0f2b4e6a8c0d2f4b6e8a0"
+  },
+  "summary": {
+    "total": 2,
+    "critical": 0,
+    "warning": 1,
+    "info": 1,
+    "assessment": "Generally solid implementation. One warning about missing keyboard navigation accessibility and one informational note about bundle size impact. Safe to merge after addressing the accessibility gap."
+  },
+  "agentResults": [
+    {
+      "agent": "security",
+      "status": "completed",
+      "findings": [],
+      "summary": "No security issues found. The component is purely presentational with no data fetching, authentication, or external calls.",
+      "model": "claude-opus-4-5",
+      "tokensUsed": 2891,
+      "durationMs": 1920
+    },
+    {
+      "agent": "change-impact",
+      "status": "completed",
+      "findings": [
+        {
+          "severity": "warning",
+          "confidence": "medium",
+          "primaryLocation": { "file": "components/ui/data-table.tsx", "line": 87 },
+          "title": "DataTable missing keyboard navigation for sorting controls",
+          "description": "The sortable column headers are implemented as `<div onClick>` elements rather than `<button>` elements. This makes them inaccessible to keyboard-only users and screen readers. The existing Table component uses proper semantic elements throughout — this regresses that standard.",
+          "suggestion": "Replace `<div onClick={handleSort}>` with `<Button variant='ghost' onClick={handleSort}>` or a native `<button>`. Add `aria-sort` attribute that updates to 'ascending' or 'descending' based on sort state.",
+          "evidenceRefs": [
+            {
+              "file": "components/ui/data-table.tsx",
+              "lineStart": 85,
+              "lineEnd": 91,
+              "snippet": "<div\n  className=\"flex items-center cursor-pointer\"\n  onClick={() => column.toggleSorting()}\n>\n  {header}\n  <ArrowUpDown className=\"ml-2 h-4 w-4\" />\n</div>",
+              "reason": "Non-interactive div used as click target — not keyboard reachable, no aria-sort"
+            }
+          ]
+        }
+      ],
+      "summary": "The implementation is consistent with shadcn/ui patterns except for sortable column headers using div elements instead of buttons, which breaks keyboard accessibility.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 3412,
+      "durationMs": 2050
+    },
+    {
+      "agent": "test-gap",
+      "status": "completed",
+      "findings": [],
+      "summary": "The component ships with Storybook stories covering the main usage patterns and a Vitest unit test for sorting logic. Coverage is acceptable for a UI component library.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 2234,
+      "durationMs": 1310
+    },
+    {
+      "agent": "docs",
+      "status": "completed",
+      "findings": [
+        {
+          "severity": "info",
+          "confidence": "low",
+          "primaryLocation": { "file": "apps/www/content/docs/components/data-table.mdx", "line": 1 },
+          "title": "Documentation does not mention @tanstack/react-table peer dependency",
+          "description": "The DataTable component requires `@tanstack/react-table` as a peer dependency, but the installation instructions in the MDX docs only show `npx shadcn-ui add data-table` without mentioning the peer dep. Users who already have a project without @tanstack/react-table installed will get a runtime error with no clear diagnosis.",
+          "suggestion": "Add a note in the installation section: 'This component requires @tanstack/react-table. Install it with: `npm install @tanstack/react-table`'. Consider adding it to the CLI scaffolding's dependency install step.",
+          "evidenceRefs": [
+            {
+              "file": "apps/www/content/docs/components/data-table.mdx",
+              "lineStart": 12,
+              "lineEnd": 18,
+              "snippet": "## Installation\n\n```bash\nnpx shadcn-ui add data-table\n```\n\n## Usage",
+              "reason": "No mention of @tanstack/react-table peer dependency in installation instructions"
+            }
+          ]
+        }
+      ],
+      "summary": "Documentation is mostly complete. One informational note: the peer dependency on @tanstack/react-table is not mentioned in the installation guide, which may confuse users.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 1987,
+      "durationMs": 1100
+    }
+  ],
+  "contextByAgent": {
+    "security": [
+      "components/ui/data-table.tsx"
+    ],
+    "change-impact": [
+      "components/ui/data-table.tsx",
+      "components/ui/table.tsx",
+      "components/ui/button.tsx"
+    ],
+    "test-gap": [
+      "components/ui/data-table.tsx",
+      "components/ui/data-table.stories.tsx",
+      "components/ui/data-table.test.tsx"
+    ],
+    "docs": [
+      "components/ui/data-table.tsx",
+      "apps/www/content/docs/components/data-table.mdx",
+      "README.md"
+    ]
+  },
+  "createdAt": "2026-04-12T11:45:00Z"
+}

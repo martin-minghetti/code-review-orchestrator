@@ -1,0 +1,142 @@
+{
+  "id": "demo-security-issues",
+  "pr": {
+    "owner": "expressjs",
+    "repo": "express",
+    "number": 5421,
+    "title": "feat: add user search endpoint with raw SQL queries",
+    "author": "dev-contributor",
+    "headSha": "a3f7c2e91b4d5f8a6c0e2b7d9f1a3c5e7b9d1f3a"
+  },
+  "summary": {
+    "total": 3,
+    "critical": 1,
+    "warning": 2,
+    "info": 0,
+    "assessment": "This PR contains a critical SQL injection vulnerability and is missing adequate test coverage and service layer abstraction. Do not merge until these issues are resolved."
+  },
+  "agentResults": [
+    {
+      "agent": "security",
+      "status": "completed",
+      "findings": [
+        {
+          "severity": "critical",
+          "confidence": "high",
+          "primaryLocation": { "file": "src/routes/users.js", "line": 34 },
+          "title": "SQL Injection via unsanitized user input",
+          "description": "The `q` query parameter is interpolated directly into a raw SQL string without parameterization. An attacker can craft a malicious URL to exfiltrate data, modify records, or drop tables.",
+          "suggestion": "Replace raw string interpolation with parameterized queries. Use `db.query('SELECT * FROM users WHERE name = $1', [req.query.q])` or switch to an ORM like Sequelize/Prisma that handles escaping automatically.",
+          "evidenceRefs": [
+            {
+              "file": "src/routes/users.js",
+              "lineStart": 34,
+              "lineEnd": 36,
+              "snippet": "const query = `SELECT * FROM users WHERE name LIKE '%${req.query.q}%'`;\nconst result = await db.raw(query);",
+              "reason": "Direct string interpolation of req.query.q into a SQL statement — textbook injection vector"
+            }
+          ]
+        }
+      ],
+      "summary": "Found 1 critical SQL injection vulnerability in the new user search endpoint. Raw user input is directly interpolated into a SQL query string without sanitization or parameterization.",
+      "model": "claude-opus-4-5",
+      "tokensUsed": 4821,
+      "durationMs": 3200
+    },
+    {
+      "agent": "change-impact",
+      "status": "completed",
+      "findings": [
+        {
+          "severity": "warning",
+          "confidence": "high",
+          "primaryLocation": { "file": "src/routes/users.js", "line": 28 },
+          "title": "Direct database access in route handler violates service layer pattern",
+          "description": "The PR adds database calls directly in the Express route handler. The rest of the codebase uses a consistent service layer pattern (e.g., `UserService`, `AuthService`) to separate data access from request handling. This inconsistency creates maintenance debt and makes the code harder to test in isolation.",
+          "suggestion": "Extract database logic into `src/services/userService.js` and expose a `searchUsers(query)` method. The route handler should only call `UserService.searchUsers(req.query.q)` and return the result.",
+          "evidenceRefs": [
+            {
+              "file": "src/routes/users.js",
+              "lineStart": 28,
+              "lineEnd": 40,
+              "snippet": "router.get('/search', async (req, res) => {\n  const query = `SELECT * FROM users WHERE name LIKE '%${req.query.q}%'`;\n  const result = await db.raw(query);\n  res.json(result.rows);\n});",
+              "reason": "Route handler directly imports and calls `db` — pattern not used anywhere else in src/routes/"
+            },
+            {
+              "file": "src/services/authService.js",
+              "lineStart": 1,
+              "lineEnd": 5,
+              "snippet": "// All other data operations go through service classes\nclass AuthService {\n  async findUserById(id) { ... }",
+              "reason": "Existing pattern that should be followed"
+            }
+          ]
+        }
+      ],
+      "summary": "The new route breaks the established service layer pattern used throughout the codebase, adding direct database access in a route handler. This creates inconsistency and regression risk.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 3107,
+      "durationMs": 1850
+    },
+    {
+      "agent": "test-gap",
+      "status": "completed",
+      "findings": [
+        {
+          "severity": "warning",
+          "confidence": "high",
+          "primaryLocation": { "file": "src/routes/users.js", "line": 1 },
+          "title": "New search endpoint has no test coverage",
+          "description": "The PR introduces a new `GET /users/search` endpoint with non-trivial logic but adds no corresponding tests. The existing test suite in `test/routes/` has full coverage for all other endpoints. Edge cases like empty queries, special characters, and SQL metacharacters are completely untested.",
+          "suggestion": "Add a `test/routes/users.search.test.js` file covering: (1) basic search returning results, (2) empty query string, (3) no matching results (empty array), (4) special characters like `%`, `_`, `'`, and `--` that are SQL metacharacters.",
+          "evidenceRefs": [
+            {
+              "file": "test/routes/",
+              "lineStart": 1,
+              "lineEnd": 1,
+              "snippet": null,
+              "reason": "No test file for users search route exists in this directory"
+            }
+          ]
+        }
+      ],
+      "summary": "The new GET /users/search endpoint has zero test coverage. All other routes have corresponding test files. Missing tests for basic functionality, edge cases, and the SQL injection vectors identified by the security agent.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 2644,
+      "durationMs": 1420
+    },
+    {
+      "agent": "docs",
+      "status": "completed",
+      "findings": [],
+      "summary": "No public API documentation gaps detected. The new endpoint is internal and not part of the public API surface documented in README.md.",
+      "model": "claude-haiku-4-5",
+      "tokensUsed": 1832,
+      "durationMs": 990
+    }
+  ],
+  "contextByAgent": {
+    "security": [
+      "src/routes/users.js",
+      "src/middleware/auth.js",
+      "src/config/database.js"
+    ],
+    "change-impact": [
+      "src/routes/users.js",
+      "src/routes/auth.js",
+      "src/services/authService.js",
+      "src/services/userService.js",
+      "src/models/User.js"
+    ],
+    "test-gap": [
+      "src/routes/users.js",
+      "test/routes/auth.test.js",
+      "test/routes/index.test.js"
+    ],
+    "docs": [
+      "src/routes/users.js",
+      "README.md",
+      "docs/api.md"
+    ]
+  },
+  "createdAt": "2026-04-12T10:15:00Z"
+}
