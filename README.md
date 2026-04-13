@@ -1,14 +1,35 @@
+<div align="center">
+
 # Code Review Orchestrator
 
-> Paste a GitHub PR URL. 4 AI agents review it in parallel. Get a unified report in seconds.
+**Paste a GitHub PR URL. 4 AI agents review it in parallel.**\
+**Security, impact analysis, test gaps, and documentation — unified report in seconds.**
 
-<p align="center">
-  <img src="docs/screenshots/landing.png" alt="Code Review Orchestrator — landing page" width="700">
-</p>
+[![Live Demo](https://img.shields.io/badge/Live_Demo-code--review--orchestrator.vercel.app-black?style=flat-square)](https://code-review-orchestrator.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![Claude](https://img.shields.io/badge/Claude-Sonnet_+_Haiku-cc785c?style=flat-square)](https://anthropic.com)
+[![Tests](https://img.shields.io/badge/Tests-65_passing-brightgreen?style=flat-square)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue?style=flat-square)]()
 
-You submit a pull request URL. The system fetches the diff, builds file-level context for each agent, and runs four specialized reviewers in parallel using Claude. In under 30 seconds you get a single report with every finding pinned to a specific file and line, backed by evidence from the code, with a concrete suggestion for how to fix it.
+<img src="docs/screenshots/landing.png" alt="Code Review Orchestrator — landing page" width="700">
 
-No vague "consider improving error handling." Every finding says exactly where, exactly what, and exactly how.
+[Live Demo](https://code-review-orchestrator.vercel.app) | [Run Locally](#run-locally) | [How It Works](#how-it-works) | [Contributing](#contributing)
+
+</div>
+
+---
+
+## The Problem
+
+Code reviews are slow. Reviewers miss things because they're tired, unfamiliar with the codebase, or focused on logic while security issues slip through. Teams wait hours or days for a review that catches surface-level problems a machine could flag in seconds.
+
+Existing AI review tools either give you vague suggestions ("consider improving error handling") or dump a wall of unstructured feedback with no connection to the actual code.
+
+## The Solution
+
+Code Review Orchestrator runs four specialized AI agents against your PR in parallel. Each agent focuses on one dimension of quality and receives only the files relevant to its job. In under 30 seconds, you get a single report where every finding is pinned to a specific file and line, backed by evidence from the code, with a concrete suggestion for how to fix it.
+
+No vague advice. Every finding says exactly where, exactly what, and exactly how.
 
 ---
 
@@ -55,7 +76,7 @@ Three precomputed reviews load instantly from bundled JSON:
 | **Clean PR** | A well-structured refactor that extracts a shared utility module. All four agents return clean — no findings. |
 | **Mixed** | A DataTable component PR with a warning about missing test coverage and an info-level note about undocumented props. Shows how findings from different agents are grouped together. |
 
-Click any demo card on the home page to see the full report.
+Click any demo card on the [home page](https://code-review-orchestrator.vercel.app) to see the full report.
 
 ---
 
@@ -127,6 +148,33 @@ A score like "72/100" implies a precision that doesn't exist. The three states �
 
 **Why TypeScript/JavaScript only?**
 The context builder fetches file content from the repo to give agents relevant background. Scoping to TS/JS files keeps context focused and token usage efficient. The agents themselves are language-agnostic in their prompts — adding more languages means extending the context builder to know which files matter for each language.
+
+---
+
+## Contributing
+
+Contributions are welcome. Some areas where help would be useful:
+
+- **Language support** — Extend the context builder to handle Python, Go, Rust, etc.
+- **Agent improvements** — Better system prompts, new agent types (performance, accessibility)
+- **UI/UX** — Report readability, mobile layout, diff viewer integration
+
+To contribute:
+
+1. Fork the repo
+2. Create a branch (`git checkout -b feature/your-feature`)
+3. Make your changes
+4. Run tests (`npm test`)
+5. Open a PR
+
+Please keep PRs focused — one feature or fix per PR.
+
+---
+
+## Community
+
+- **Issues** — [GitHub Issues](https://github.com/martin-minghetti/code-review-orchestrator/issues) for bugs and feature requests
+- **Discussions** — [GitHub Discussions](https://github.com/martin-minghetti/code-review-orchestrator/discussions) for questions and ideas
 
 ---
 
