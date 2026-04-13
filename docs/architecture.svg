@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" fill="none">
+  <style>
+    text { font-family: system-ui, -apple-system, sans-serif; }
+    .label { fill: #e2e8f0; font-size: 14px; font-weight: 600; }
+    .sublabel { fill: #94a3b8; font-size: 11px; }
+    .agent-label { fill: #e2e8f0; font-size: 12px; font-weight: 600; }
+    .agent-sub { fill: #94a3b8; font-size: 10px; }
+    .model-tag { fill: #64748b; font-size: 9px; }
+    .arrow { stroke: #475569; stroke-width: 2; marker-end: url(#arrowhead); }
+    .box { rx: 8; ry: 8; }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1: PR URL -->
+  <rect x="200" y="16" width="200" height="44" class="box" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="300" y="43" text-anchor="middle" class="label">PR URL</text>
+
+  <line x1="300" y1="60" x2="300" y2="90" class="arrow"/>
+
+  <!-- Step 2: GitHub API -->
+  <rect x="150" y="90" width="300" height="56" class="box" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="300" y="113" text-anchor="middle" class="label">GitHub API</text>
+  <text x="300" y="131" text-anchor="middle" class="sublabel">PR metadata, changed files, diffs, repo tree</text>
+
+  <line x1="300" y1="146" x2="300" y2="176" class="arrow"/>
+
+  <!-- Step 3: Context Builder -->
+  <rect x="150" y="176" width="300" height="56" class="box" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="300" y="199" text-anchor="middle" class="label">Context Builder</text>
+  <text x="300" y="217" text-anchor="middle" class="sublabel">Selects relevant repo files per agent</text>
+
+  <line x1="300" y1="232" x2="300" y2="262" class="arrow"/>
+
+  <!-- Step 4: 4 Agents -->
+  <rect x="30" y="262" width="540" height="120" class="box" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="300" y="284" text-anchor="middle" fill="#60a5fa" font-size="12" font-weight="600" font-family="system-ui, sans-serif">4 Agents in Parallel</text>
+
+  <!-- Agent cards -->
+  <!-- Security -->
+  <rect x="46" y="296" width="120" height="72" rx="6" ry="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="106" y="318" text-anchor="middle" class="agent-label">Security</text>
+  <text x="106" y="334" text-anchor="middle" class="agent-sub">Vulnerabilities,</text>
+  <text x="106" y="346" text-anchor="middle" class="agent-sub">secrets, auth</text>
+  <text x="106" y="361" text-anchor="middle" class="model-tag">Sonnet</text>
+
+  <!-- Change Impact -->
+  <rect x="178" y="296" width="120" height="72" rx="6" ry="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="238" y="318" text-anchor="middle" class="agent-label">Change Impact</text>
+  <text x="238" y="334" text-anchor="middle" class="agent-sub">Patterns, coupling,</text>
+  <text x="238" y="346" text-anchor="middle" class="agent-sub">regression risk</text>
+  <text x="238" y="361" text-anchor="middle" class="model-tag">Sonnet</text>
+
+  <!-- Test Gap -->
+  <rect x="310" y="296" width="120" height="72" rx="6" ry="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="370" y="318" text-anchor="middle" class="agent-label">Test Gap</text>
+  <text x="370" y="334" text-anchor="middle" class="agent-sub">Missing tests,</text>
+  <text x="370" y="346" text-anchor="middle" class="agent-sub">coverage gaps</text>
+  <text x="370" y="361" text-anchor="middle" class="model-tag">Haiku</text>
+
+  <!-- Docs -->
+  <rect x="442" y="296" width="120" height="72" rx="6" ry="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="502" y="318" text-anchor="middle" class="agent-label">Docs</text>
+  <text x="502" y="334" text-anchor="middle" class="agent-sub">Missing JSDoc,</text>
+  <text x="502" y="346" text-anchor="middle" class="agent-sub">outdated README</text>
+  <text x="502" y="361" text-anchor="middle" class="model-tag">Haiku</text>
+
+  <line x1="300" y1="382" x2="300" y2="420" class="arrow"/>
+
+  <!-- Step 5: Unified Report -->
+  <rect x="120" y="420" width="360" height="72" class="box" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="300" y="449" text-anchor="middle" class="label">Unified Report</text>
+  <text x="300" y="467" text-anchor="middle" class="sublabel">Findings with evidence, grouped by severity</text>
+  <text x="300" y="481" text-anchor="middle" class="sublabel">LGTM / REVIEW SUGGESTED / NEEDS WORK</text>
+</svg>

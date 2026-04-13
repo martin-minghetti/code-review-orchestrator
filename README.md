@@ -6,27 +6,9 @@
 
 ## How It Works
 
-```
-PR URL
-  │
-  ▼
-GitHub API (Octokit)
-  │  Fetch PR metadata, changed files, diffs, repo tree
-  ▼
-Context Builder
-  │  Fetches relevant existing files for each agent's focus
-  ▼
-┌─────────────────────────────────────────────────────────┐
-│                  4 Agents in Parallel                   │
-│                                                         │
-│  Security Scanner  │  Change Impact  │  Test Gap  │ Docs│
-└─────────────────────────────────────────────────────────┘
-  │
-  ▼
-Unified Report
-  Findings grouped by severity (critical / warning / info)
-  Overall assessment: LGTM · REVIEW SUGGESTED · NEEDS WORK
-```
+<p align="center">
+  <img src="docs/architecture.svg" alt="Architecture diagram" width="600">
+</p>
 
 **Step by step:**
 
