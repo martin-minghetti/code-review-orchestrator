@@ -23,8 +23,9 @@ export const findingSchema = z.object({
 
 export const agentResultSchema = z.object({
   agent: z.enum(['security', 'change-impact', 'test-gap', 'docs']),
-  status: z.enum(['completed', 'skipped']),
+  status: z.enum(['completed', 'skipped', 'error']),
   skipReason: z.string().optional(),
+  errorMessage: z.string().optional(),
   findings: z.array(findingSchema),
   summary: z.string(),
   model: z.string(),
