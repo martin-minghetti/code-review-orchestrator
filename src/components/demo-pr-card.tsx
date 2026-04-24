@@ -12,14 +12,14 @@ export function DemoPrCard({ demoId, data }: DemoPrCardProps) {
 
   return (
     <Link href={`/review/${demoId}`} className="block group focus:outline-none">
-      <Card className="h-full transition-all duration-150 group-hover:ring-primary/50 group-focus-visible:ring-primary/50 group-hover:ring-2 group-focus-visible:ring-2">
-        <CardHeader>
+      <Card className="h-full gap-3 rounded-[20px] border-border/80 bg-card py-5 backdrop-blur-md transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-foreground/15 group-hover:bg-secondary group-focus-visible:border-foreground/30">
+        <CardHeader className="gap-1.5 px-5">
           <p className="text-xs font-mono text-muted-foreground">
             {pr.owner}/{pr.repo} #{pr.number}
           </p>
-          <CardTitle className="text-sm leading-snug">{pr.title}</CardTitle>
+          <CardTitle className="text-sm font-medium leading-snug">{pr.title}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-5">
           <div className="flex flex-wrap gap-2">
             {summary.total === 0 ? (
               <span className="inline-flex h-5 items-center rounded-full bg-green-500/15 px-2 text-xs font-medium text-green-400">

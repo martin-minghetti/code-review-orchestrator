@@ -1,34 +1,45 @@
 import { DEMOS } from '@/lib/demos';
 import { DemoPrCard } from '@/components/demo-pr-card';
 import { PrInputForm } from '@/components/pr-input-form';
-import { Separator } from '@/components/ui/separator';
 import { ShieldAlert, GitCompareArrows, FlaskConical, FileText } from 'lucide-react';
 
 const agents = [
-  { icon: ShieldAlert, label: 'Security', color: 'text-red-400' },
-  { icon: GitCompareArrows, label: 'Impact', color: 'text-blue-400' },
-  { icon: FlaskConical, label: 'Test Gaps', color: 'text-amber-400' },
-  { icon: FileText, label: 'Docs', color: 'text-emerald-400' },
+  { icon: ShieldAlert, label: 'Security' },
+  { icon: GitCompareArrows, label: 'Impact' },
+  { icon: FlaskConical, label: 'Test Gaps' },
+  { icon: FileText, label: 'Docs' },
 ];
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground page-enter">
       {/* Hero */}
-      <section className="mx-auto max-w-3xl px-4 pt-12 pb-10 text-center">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          4 AI agents review your pull request in parallel
+      <section className="mx-auto max-w-3xl px-4 pt-20 pb-16 text-center sm:pt-28">
+        <p className="eyebrow reveal mb-6" style={{ animationDelay: '50ms' }}>
+          Code Review Orchestrator
+        </p>
+        <h1
+          className="display-sm reveal text-3xl sm:text-5xl"
+          style={{ animationDelay: '150ms' }}
+        >
+          4 AI agents review your pull request in parallel.
         </h1>
-        <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
+        <p
+          className="reveal mt-5 text-base text-muted-foreground max-w-xl mx-auto sm:text-lg"
+          style={{ animationDelay: '300ms' }}
+        >
           Paste a GitHub PR URL and get instant analysis from a Security Scanner, Change Impact
           Analyzer, Test Gap Detector, and Documentation Verifier — all powered by Claude.
         </p>
 
-        <div className="mt-8 flex items-center justify-center gap-6 sm:gap-8">
-          {agents.map(({ icon: Icon, label, color }) => (
-            <div key={label} className="flex flex-col items-center gap-1.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card">
-                <Icon className={`h-5 w-5 ${color}`} />
+        <div
+          className="reveal mt-10 flex items-center justify-center gap-4 sm:gap-6"
+          style={{ animationDelay: '450ms' }}
+        >
+          {agents.map(({ icon: Icon, label }) => (
+            <div key={label} className="flex flex-col items-center gap-2">
+              <div className="glass-pill flex h-11 w-11 items-center justify-center rounded-[14px]">
+                <Icon className="h-4.5 w-4.5 text-foreground/80" />
               </div>
               <span className="text-xs text-muted-foreground">{label}</span>
             </div>
@@ -36,28 +47,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Separator />
-
       {/* Demo PRs */}
-      <section className="mx-auto max-w-3xl px-4 py-10">
-        <h2 className="text-lg font-semibold mb-1">See it in action</h2>
-        <p className="text-sm text-muted-foreground mb-6">
-          Explore pre-run reviews on real open source PRs.
-        </p>
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div
+          className="reveal mb-6 flex items-end justify-between gap-4"
+          style={{ animationDelay: '550ms' }}
+        >
+          <div>
+            <p className="eyebrow mb-1.5">Demos</p>
+            <h2 className="display-sm text-xl sm:text-2xl">See it in action</h2>
+          </div>
+          <p className="text-sm text-muted-foreground hidden sm:block">
+            Pre-run reviews on real open source PRs.
+          </p>
+        </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-          {DEMOS.map(demo => (
-            <DemoPrCard key={demo.id} demoId={demo.id} data={demo.data} />
+          {DEMOS.map((demo, i) => (
+            <div
+              key={demo.id}
+              className="reveal"
+              style={{ animationDelay: `${650 + i * 80}ms` }}
+            >
+              <DemoPrCard demoId={demo.id} data={demo.data} />
+            </div>
           ))}
         </div>
       </section>
 
-      <Separator />
-
       {/* Form */}
-      <section className="mx-auto max-w-3xl px-4 py-10 pb-16">
-        <div className="mx-auto max-w-md">
-          <h2 className="text-lg font-semibold mb-1">Try with your own PR</h2>
-          <p className="text-sm text-muted-foreground mb-6">
+      <section className="mx-auto max-w-3xl px-4 pb-24">
+        <div
+          className="reveal mx-auto max-w-md rounded-[24px] border border-border/80 bg-card p-8 backdrop-blur-md sm:p-10"
+          style={{ animationDelay: '850ms' }}
+        >
+          <p className="eyebrow mb-2">Try it</p>
+          <h2 className="display-sm text-xl sm:text-2xl">Use your own PR</h2>
+          <p className="mt-2 mb-6 text-sm text-muted-foreground">
             Works on any public GitHub pull request. Bring your own Anthropic API key.
           </p>
           <PrInputForm />
