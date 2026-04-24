@@ -15,10 +15,13 @@ const severityStyles: Record<Finding['severity'], string> = {
 };
 
 const confidenceStyles: Record<Finding['confidence'], string> = {
-  high: 'bg-muted text-foreground',
-  medium: 'bg-muted text-muted-foreground',
-  low: 'bg-muted text-muted-foreground opacity-70',
+  high: 'bg-foreground/10 text-foreground border-foreground/10',
+  medium: 'bg-foreground/5 text-muted-foreground border-foreground/10',
+  low: 'bg-foreground/5 text-muted-foreground/70 border-foreground/10',
 };
+
+const BADGE =
+  'inline-flex shrink-0 items-center whitespace-nowrap rounded-full border py-0.5 px-2 text-[11px] font-medium leading-tight';
 
 export function FindingItem({ finding }: FindingItemProps) {
   const [expanded, setExpanded] = useState(false);
@@ -28,27 +31,25 @@ export function FindingItem({ finding }: FindingItemProps) {
       <button
         type="button"
         onClick={() => setExpanded(prev => !prev)}
-        className="w-full text-left flex items-start gap-3 p-3 hover:bg-muted/30 transition-colors"
+        className="w-full text-left flex flex-col gap-1.5 p-3 hover:bg-muted/30 transition-colors sm:flex-row sm:items-center sm:gap-3"
       >
-        <div className="flex items-center gap-2 flex-wrap min-w-0 flex-1">
-          <span
-            className={`inline-flex h-5 items-center rounded-full border px-2 text-xs font-medium ${severityStyles[finding.severity]}`}
-          >
+        <div className="flex min-w-0 flex-1 items-center gap-2">
+          <span className={`${BADGE} ${severityStyles[finding.severity]}`}>
             {finding.severity}
           </span>
-          <span
-            className={`inline-flex h-5 items-center rounded-full px-2 text-xs font-medium ${confidenceStyles[finding.confidence]}`}
-          >
-            {finding.confidence} confidence
+          <span className={`${BADGE} ${confidenceStyles[finding.confidence]}`}>
+            {finding.confidence}
           </span>
-          <span className="text-sm font-medium truncate">{finding.title}</span>
+          <span className="min-w-0 flex-1 truncate text-sm font-medium">{finding.title}</span>
         </div>
         {finding.primaryLocation && (
-          <span className="text-xs text-muted-foreground font-mono whitespace-nowrap shrink-0">
+          <span className="truncate text-xs font-mono text-muted-foreground sm:max-w-[38%] sm:shrink-0">
             {finding.primaryLocation.file}:{finding.primaryLocation.line}
           </span>
         )}
-        <span className="text-muted-foreground shrink-0 text-xs">{expanded ? '▲' : '▼'}</span>
+        <span className="hidden shrink-0 text-xs text-muted-foreground sm:inline">
+          {expanded ? '▲' : '▼'}
+        </span>
       </button>
 
       {expanded && (
